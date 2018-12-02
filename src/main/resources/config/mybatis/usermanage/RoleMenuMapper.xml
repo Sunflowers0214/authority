@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flysnow.usermanage.dao.RoleMenuDao">
+
+	<sql id="RoleMenuWhere">
+		<if test="roleMenuId != null">
+            AND a.role_menu_id=#{roleMenuId}
+		</if>
+		<if test="roleId != null">
+            AND a.role_id=#{roleId}
+		</if>
+		<if test="menuId != null">
+            AND a.menu_id=#{menuId}
+		</if>
+		<if test="menuCode != null">
+            AND a.menu_code=#{menuCode}
+		</if>
+		<if test="menuPermission != null">
+            AND a.menu_permission=#{menuPermission}
+		</if>
+		<if test="menuOrder != null">
+            AND a.menu_order=#{menuOrder}
+		</if>
+	</sql>
+	
+	<sql id="RoleMenuModifyWhere">
+		<if test="where.roleMenuId != null">
+			role_menu_id=#{where.roleMenuId}
+		</if>
+		<if test="where.roleId != null">
+			role_id=#{where.roleId}
+		</if>
+		<if test="where.menuId != null">
+			menu_id=#{where.menuId}
+		</if>
+		<if test="where.menuCode != null">
+			menu_code=#{where.menuCode}
+		</if>
+		<if test="where.menuPermission != null">
+			menu_permission=#{where.menuPermission}
+		</if>
+		<if test="where.menuOrder != null">
+			menu_order=#{where.menuOrder}
+		</if>
+	</sql>
+	
+	<insert id="insertRoleMenu" parameterType="RoleMenu">
+		INSERT INTO t_role_menu (
+        <trim prefix="" suffixOverrides=",">
+			<if test="roleMenuId != null">
+				,role_menu_id
+			</if>
+			<if test="roleId != null">
+				,role_id
+			</if>
+			<if test="menuId != null">
+				,menu_id
+			</if>
+			<if test="menuCode != null">
+				,menu_code
+			</if>
+			<if test="menuPermission != null">
+				,menu_permission
+			</if>
+			<if test="menuOrder != null">
+				,menu_order
+			</if>
+		</trim>
+		) VALUES (
+        <trim prefix="" suffixOverrides=",">
+	       	<if test="roleMenuId != null">
+				,#{roleMenuId}
+			</if>
+	       	<if test="roleId != null">
+				,#{roleId}
+			</if>
+	       	<if test="menuId != null">
+				,#{menuId}
+			</if>
+	       	<if test="menuCode != null">
+				,#{menuCode}
+			</if>
+	       	<if test="menuPermission != null">
+				,#{menuPermission}
+			</if>
+	       	<if test="menuOrder != null">
+				,#{menuOrder}
+			</if>
+		</trim>
+		)
+	</insert>
+
+    <delete id="deleteRoleMenu" parameterType="RoleMenu">
+        DELETE FROM t_role_menu
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="RoleMenuModifyWhere" />
+        </trim>
+    </delete>
+
+    <update id="updateRoleMenu" parameterType="RoleMenu">
+		UPDATE t_role_menu
+        <trim prefix="SET" suffixOverrides=",">
+			<if test="roleMenuId != null">
+				,role_menu_id=#{roleMenuId}
+			</if>
+			<if test="roleId != null">
+				,role_id=#{roleId}
+			</if>
+			<if test="menuId != null">
+				,menu_id=#{menuId}
+			</if>
+			<if test="menuCode != null">
+				,menu_code=#{menuCode}
+			</if>
+			<if test="menuPermission != null">
+				,menu_permission=#{menuPermission}
+			</if>
+			<if test="menuOrder != null">
+				,menu_order=#{menuOrder}
+			</if>
+		</trim>
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+			<include refid="RoleMenuModifyWhere" />
+		</trim>
+	</update>
+
+    <!-- 角色菜单 (单条查询) -->
+    <resultMap id="RoleMenuResult" type="RoleMenu">
+		<result column="role_menu_id" property="roleMenuId"/>
+		<result column="role_id" property="roleId"/>
+		<result column="menu_id" property="menuId"/>
+		<result column="menu_code" property="menuCode"/>
+		<result column="menu_permission" property="menuPermission"/>
+		<result column="menu_order" property="menuOrder"/>
+    </resultMap>
+    <select id="getRoleMenu" resultMap="RoleMenuResult" parameterType="RoleMenu" >
+        SELECT
+			a.role_menu_id,
+			a.role_id,
+			a.menu_id,
+			a.menu_code,
+			a.menu_permission,
+			a.menu_order
+        FROM t_role_menu a
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="RoleMenuWhere" />
+        </trim>
+    </select>
+
+    <!-- 角色菜单 (列表查询) -->
+    <resultMap id="RoleMenuListResult" type="roleMenu">
+		<result column="role_menu_id" property="roleMenuId"/>
+		<result column="role_id" property="roleId"/>
+		<result column="menu_id" property="menuId"/>
+		<result column="menu_code" property="menuCode"/>
+		<result column="menu_permission" property="menuPermission"/>
+		<result column="menu_order" property="menuOrder"/>
+    </resultMap>
+	<select id="getRoleMenuList" resultMap="RoleMenuListResult" parameterType="RoleMenu" >
+        SELECT
+			a.role_menu_id,
+			a.role_id,
+			a.menu_id,
+			a.menu_code,
+			a.menu_permission,
+			a.menu_order
+		FROM t_role_menu a
+		WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="RoleMenuWhere" />
+        </trim>
+	</select>
+
+    <!-- 角色菜单 (分页查询) -->
+    <resultMap id="RoleMenuListPageResult" type="java.util.HashMap">
+		<result column="role_menu_id" property="roleMenuId"/>
+		<result column="role_id" property="roleId"/>
+		<result column="menu_id" property="menuId"/>
+		<result column="menu_code" property="menuCode"/>
+		<result column="menu_permission" property="menuPermission"/>
+		<result column="menu_order" property="menuOrder"/>
+    </resultMap>
+    <select id="getRoleMenuListPage" resultMap="RoleMenuListPageResult" parameterType="map" >
+        SELECT
+			a.role_menu_id,
+			a.role_id,
+			a.menu_id,
+			a.menu_code,
+			a.menu_permission,
+			a.menu_order
+        FROM t_role_menu a
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="RoleMenuWhere" />
+        </trim>
+        <if test="pageSort != null">
+            ORDER BY #{pageSort}
+        </if>
+        LIMIT #{beginRow},#{pageSize}
+    </select>
+    <select id="getRoleMenuListPageCount" resultType="int" parameterType="map" >
+        SELECT count(1)
+        FROM t_role_menu a
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="RoleMenuWhere" />
+        </trim>
+    </select>
+
+</mapper>

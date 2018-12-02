@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flysnow.usermanage.dao.UserPermissionDao">
+
+	<sql id="UserPermissionWhere">
+		<if test="userPermissionId != null">
+            AND a.user_permission_id=#{userPermissionId}
+		</if>
+		<if test="userId != null">
+            AND a.user_id=#{userId}
+		</if>
+		<if test="loginType != null">
+            AND a.login_type=#{loginType}
+		</if>
+	</sql>
+	
+	<sql id="UserPermissionModifyWhere">
+		<if test="where.userPermissionId != null">
+			user_permission_id=#{where.userPermissionId}
+		</if>
+		<if test="where.userId != null">
+			user_id=#{where.userId}
+		</if>
+		<if test="where.loginType != null">
+			login_type=#{where.loginType}
+		</if>
+	</sql>
+	
+	<insert id="insertUserPermission" parameterType="UserPermission">
+		INSERT INTO t_user_permission (
+        <trim prefix="" suffixOverrides=",">
+			<if test="userPermissionId != null">
+				,user_permission_id
+			</if>
+			<if test="userId != null">
+				,user_id
+			</if>
+			<if test="loginType != null">
+				,login_type
+			</if>
+		</trim>
+		) VALUES (
+        <trim prefix="" suffixOverrides=",">
+	       	<if test="userPermissionId != null">
+				,#{userPermissionId}
+			</if>
+	       	<if test="userId != null">
+				,#{userId}
+			</if>
+	       	<if test="loginType != null">
+				,#{loginType}
+			</if>
+		</trim>
+		)
+	</insert>
+
+    <delete id="deleteUserPermission" parameterType="UserPermission">
+        DELETE FROM t_user_permission
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="UserPermissionModifyWhere" />
+        </trim>
+    </delete>
+
+    <update id="updateUserPermission" parameterType="UserPermission">
+		UPDATE t_user_permission
+        <trim prefix="SET" suffixOverrides=",">
+			<if test="userPermissionId != null">
+				,user_permission_id=#{userPermissionId}
+			</if>
+			<if test="userId != null">
+				,user_id=#{userId}
+			</if>
+			<if test="loginType != null">
+				,login_type=#{loginType}
+			</if>
+		</trim>
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+			<include refid="UserPermissionModifyWhere" />
+		</trim>
+	</update>
+
+    <!-- 用户登录权限 (单条查询) -->
+    <resultMap id="UserPermissionResult" type="UserPermission">
+		<result column="user_permission_id" property="userPermissionId"/>
+		<result column="user_id" property="userId"/>
+		<result column="login_type" property="loginType"/>
+    </resultMap>
+    <select id="getUserPermission" resultMap="UserPermissionResult" parameterType="UserPermission" >
+        SELECT
+			a.user_permission_id,
+			a.user_id,
+			a.login_type
+        FROM t_user_permission a
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="UserPermissionWhere" />
+        </trim>
+    </select>
+
+    <!-- 用户登录权限 (列表查询) -->
+    <resultMap id="UserPermissionListResult" type="userPermission">
+		<result column="user_permission_id" property="userPermissionId"/>
+		<result column="user_id" property="userId"/>
+		<result column="login_type" property="loginType"/>
+    </resultMap>
+	<select id="getUserPermissionList" resultMap="UserPermissionListResult" parameterType="UserPermission" >
+        SELECT
+			a.user_permission_id,
+			a.user_id,
+			a.login_type
+		FROM t_user_permission a
+		WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="UserPermissionWhere" />
+        </trim>
+	</select>
+
+    <!-- 用户登录权限 (分页查询) -->
+    <resultMap id="UserPermissionListPageResult" type="java.util.HashMap">
+		<result column="user_permission_id" property="userPermissionId"/>
+		<result column="user_id" property="userId"/>
+		<result column="login_type" property="loginType"/>
+    </resultMap>
+    <select id="getUserPermissionListPage" resultMap="UserPermissionListPageResult" parameterType="map" >
+        SELECT
+			a.user_permission_id,
+			a.user_id,
+			a.login_type
+        FROM t_user_permission a
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="UserPermissionWhere" />
+        </trim>
+        <if test="pageSort != null">
+            ORDER BY #{pageSort}
+        </if>
+        LIMIT #{beginRow},#{pageSize}
+    </select>
+    <select id="getUserPermissionListPageCount" resultType="int" parameterType="map" >
+        SELECT count(1)
+        FROM t_user_permission a
+        WHERE 1=1
+        <trim prefix="" prefixOverrides="AND">
+            <include refid="UserPermissionWhere" />
+        </trim>
+    </select>
+
+</mapper>
