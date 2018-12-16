@@ -20,17 +20,18 @@ import static com.flysnow.common.status.LoginStatus.LOGIN_ALREADY;
 import static com.flysnow.common.status.LoginStatus.RAND_ERROR;
 
 @Controller
+@RequestMapping("/login")
 public class LoginController extends BaseController {
 
     @Autowired
     private LoginService loginService;
 
-    @RequestMapping("/ajaxLogin")
+    @RequestMapping("/weblogin")
     @ResponseBody
     public Result login(@RequestParam String userAccount, @RequestParam String password, @RequestParam(required = false) String ipAddress, HttpSession session) throws Exception {
         logger.debug("开始登陆");
-        logger.debug("登陆ip地址："+ipAddress);
-        logger.debug("登陆mac地址："+ipAddress);
+        logger.debug("登陆ip地址：" + ipAddress);
+        logger.debug("登陆mac地址：" + ipAddress);
         LoginUser currentUser = null;
         if (currentUser == null) {
             String token = TokenUtil.genToken(userAccount, password);

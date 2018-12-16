@@ -1,10 +1,4 @@
-<%@ page language="java" import="java.util.*,java.net.*" pageEncoding="UTF-8" %>
-<%
-    InetAddress addr = InetAddress.getLocalHost();
-    String ipAddress = addr.getHostAddress().toString();//获得本机IP
-%>
 <!DOCTYPE html>
-<%@ include file="/WEB-INF/jsp/commons/common.jsp" %>
 <html>
 <head>
     <title>登录页面</title>
@@ -16,6 +10,7 @@
     <meta http-equiv="Cache" content="no-cache">
     <meta name="copyright" content="Copyright 2018"/>
     <link type="text/css" rel="stylesheet" href="css/login.css"/>
+    <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
     <script language="javascript">
         var ipAddress = "<%=ipAddress%>"
 
@@ -40,7 +35,7 @@
             } else {
                 $("#msg_span").html("");
                 $.ajax({
-                    url: '${baseurl}ajaxLogin',// 跳转到 action
+                    url: 'login/weblogin',// 跳转到 action
                     data: {
                         userAccount: uname.val(),
                         password: pwd.val(),
@@ -53,7 +48,7 @@
                         if (data.code != "success") {
                             $("#msg_span").html(data.msg);
                         } else {
-                            location.href = "${baseurl}home";
+                            location.href = "home.html";
                         }
                     },
                     error: function () {
@@ -65,7 +60,7 @@
     </script>
 </head>
 <body onkeypress="doEnterKey();" id="userlogin_body">
-<form id="thefrom" name="thefrom" action="user/action/login_action.php" method="post">
+<form id="thefrom" name="thefrom" action="" method="post">
     <input type="hidden" value="login" name="action"/>
     <input type="hidden" id="logintype" name="logintype"/>
     <div id="panSiteFactory">

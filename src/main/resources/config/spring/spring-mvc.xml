@@ -30,10 +30,10 @@
     </bean>
 
     <!-- 4、配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->
-    <mvc:resources location="/WEB-INF/html/" mapping="/html/**"/>
-    <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
-    <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
-    <mvc:resources location="/WEB-INF/image/" mapping="/image/**"/>
+   <!-- <mvc:resources location="/html/" mapping="/html/**"/>
+    <mvc:resources location="/js/" mapping="/js/**"/>
+    <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/image/" mapping="/image/**"/>-->
 
     <!-- 5、定义文件上传解析器，设定默认编码UTF-8，文件上传的最大值20MB-->
     <!--

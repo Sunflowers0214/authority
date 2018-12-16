@@ -25,7 +25,7 @@ public class FirstController extends BaseController {
     @RequestMapping(value = {"/", "/first", "/login"})
     public String first(Model model) throws Exception {
         logger.debug("跳转登录");
-        return "login";
+        return "/login.jsp";
     }
 
     @RequestMapping("/home")
