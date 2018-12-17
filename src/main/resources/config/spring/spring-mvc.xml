@@ -30,10 +30,23 @@
     </bean>
 
     <!-- 4、配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->
-   <!-- <mvc:resources location="/html/" mapping="/html/**"/>
-    <mvc:resources location="/js/" mapping="/js/**"/>
-    <mvc:resources location="/css/" mapping="/css/**"/>
-    <mvc:resources location="/image/" mapping="/image/**"/>-->
+    <!-- <mvc:resources location="/html/" mapping="/html/**"/>
+     <mvc:resources location="/js/" mapping="/js/**"/>
+     <mvc:resources location="/css/" mapping="/css/**"/>
+     <mvc:resources location="/image/" mapping="/image/**"/>-->
+
+    <!--配置拦截器, 多个拦截器,顺序执行 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/html/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/image/**"/>
+            <mvc:exclude-mapping path="/json/**"/>
+            <bean id="commonInterceptor" class="com.flysnow.common.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- 5、定义文件上传解析器，设定默认编码UTF-8，文件上传的最大值20MB-->
     <!--

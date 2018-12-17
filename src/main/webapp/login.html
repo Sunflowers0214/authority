@@ -11,9 +11,8 @@
     <meta name="copyright" content="Copyright 2018"/>
     <link type="text/css" rel="stylesheet" href="css/login.css"/>
     <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="js/ajaxJson.js"></script>
     <script language="javascript">
-        var ipAddress = "<%=ipAddress%>"
-
         function doEnterKey() {
             if (event.keyCode == 13) {
                 doLogin();
@@ -34,12 +33,22 @@
                 pwd.focus();
             } else {
                 $("#msg_span").html("");
-                $.ajax({
-                    url: 'login/weblogin',// 跳转到 action
+                var data = {
+                    userAccount: uname.val(),
+                    password: pwd.val()
+                };
+                syncAjaxJson("login/weblogin", data, function (data) {
+                    if (data.code != "success") {
+                        $("#msg_span").html(data.msg);
+                    } else {
+                        location.href = "home.html";
+                    }
+                });
+                /*$.ajax({
+                    url: 'login/weblogin',
                     data: {
                         userAccount: uname.val(),
-                        password: pwd.val(),
-                        ipAddress: ipAddress
+                        password: pwd.val()
                     },
                     type: 'post',
                     cache: false,
@@ -54,7 +63,7 @@
                     error: function () {
                         alert("异常！");
                     }
-                });
+                });*/
             }
         }
     </script>

@@ -1,6 +1,8 @@
 package com.flysnow.login.model;
 
-import com.flysnow.authority.model.*;
+import com.flysnow.authority.model.UserFunction;
+import com.flysnow.authority.model.UserPermission;
+import com.flysnow.authority.model.UserRole;
 import com.flysnow.common.status.LoginStatus;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
  * @description 用户身份信息
  * @createtime 2018-12-01
  */
-public class LoginUser implements java.io.Serializable {
+public class LoginFuntion implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
 
     private String userId;//用户ID
@@ -19,7 +21,6 @@ public class LoginUser implements java.io.Serializable {
     private String userName;//用户名称
     private String userPhone;//手机号
     private LoginStatus loginStatus;//登陆状态
-    private User user;
     private List<UserPermission> permissionList;// 权限列表
     private List<UserRole> roleList;// 角色列表
     private List<UserFunction> functionList;// 功能列表
@@ -66,14 +67,6 @@ public class LoginUser implements java.io.Serializable {
 
     public void setLoginStatus(LoginStatus loginStatus) {
         this.loginStatus = loginStatus;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public List<UserPermission> getPermissionList() {

@@ -25,7 +25,7 @@ public class LoginServiceImplTest {
         String userAccount = "admin";
         String password = "111111";
         String token = TokenUtil.genToken(userAccount, password);
-        LoginUser loginUser = loginService.login(userAccount, password, token);
+        LoginUser loginUser = loginService.checkUserAuth(userAccount, password, token);
         System.out.println(loginUser.getLoginStatus());
     }
 }

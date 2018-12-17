@@ -9,6 +9,7 @@ import com.flysnow.authority.model.UserFunction;
 import com.flysnow.authority.model.UserPermission;
 import com.flysnow.authority.model.UserRole;
 import com.flysnow.common.base.BaseService;
+import com.flysnow.login.model.LoginFuntion;
 import com.flysnow.login.model.LoginUser;
 import com.flysnow.login.service.LoginService;
 import com.flysnow.logmanage.dao.LoginLogDao;
@@ -49,8 +50,8 @@ public class LoginServiceImpl extends BaseService implements LoginService {
     }
 
     @Override
-    public LoginUser login(String userAccount, String password, String token) {
-        logger.debug("开始登录");
+    public LoginUser checkUserAuth(String userAccount, String password, String token) {
+        logger.debug("开始验证");
         LoginUser loginUser = new LoginUser();
         try {
             logger.debug("查询用户信息");
@@ -69,6 +70,7 @@ public class LoginServiceImpl extends BaseService implements LoginService {
                     loginUser.setUserAccount(userAccount);
                     loginUser.setUserName(user.getUserName());
                     loginUser.setUserPhone(user.getUserPhone());
+                    loginUser.setUser(user);
                     logger.debug("查询用户权限");
                     UserPermission userPermissionQuery = new UserPermission();
                     userPermissionQuery.setUserId(user.getUserId());
@@ -105,12 +107,12 @@ public class LoginServiceImpl extends BaseService implements LoginService {
                     }
                 }
             }
+            logger.debug("验证用户权限结束！");
         } catch (Exception e) {
-            logger.error("登录异常：" + e.getMessage());
+            logger.error("验证异常：" + e.getMessage());
             e.printStackTrace();
             loginUser.setLoginStatus(LOGIN_ERROT);
         }
-        logger.debug("用户信息获取结束！");
         return loginUser;
     }
 
@@ -125,6 +127,50 @@ public class LoginServiceImpl extends BaseService implements LoginService {
         loginlog.setLoginType(loginType);
         loginlog.setLoginTime(new Date());
         loginLogDao.insert(loginlog);
+    }
+
+    @Override
+    public LoginUser getLoginUser(String userId) {
+        logger.debug("开始获取用户功能");
+        LoginUser loginUser = new LoginUser();
+        try {
+            logger.debug("查询用户信息");
+            User userQuery = new User();
+            userQuery.setUserId(userId);
+            User user = userDao.get(userQuery);
+            logger.debug("用户信息" + user.toString());
+            loginUser.setUserId(user.getUserId());
+            loginUser.setUserAccount(user.getUserAccount());
+            loginUser.setUserName(user.getUserName());
+            loginUser.setUserPhone(user.getUserPhone());
+            loginUser.setUser(user);
+            logger.debug("查询用户权限");
+            UserPermission userPermissionQuery = new UserPermission();
+            userPermissionQuery.setUserId(user.getUserId());
+            List<UserPermission> permissionList = userPermissionDao.getList(userPermissionQuery);
+            logger.debug("用户权限:" + permissionList.toString());
+            loginUser.setPermissionList(permissionList);
+            logger.debug("查询用户角色");
+            UserRole userRoleQuery = new UserRole();
+            userRoleQuery.setUserId(user.getUserId());
+            List<UserRole> userRoleList = userRoleDao.getList(userRoleQuery);
+            logger.debug("用户角色:" + userRoleList.toString());
+            loginUser.setRoleList(userRoleList);
+            logger.debug("查询用户功能");
+            List<String> roleList = new ArrayList<String>();
+            for (UserRole userRole : userRoleList) {
+                roleList.add(userRole.getRoleId());
+            }
+            List<UserFunction> userFunctionList = loginDao.getUserFunctionListByUserId(user.getUserId());
+            logger.debug("用户功能:" + userFunctionList.toString());
+            loginUser.setFunctionList(userFunctionList);
+            logger.debug("获取用户功能结束！");
+        } catch (Exception e) {
+            logger.error("获取：" + e.getMessage());
+            e.printStackTrace();
+            loginUser.setLoginStatus(LOGIN_ERROT);
+        }
+        return loginUser;
     }
 
 }
