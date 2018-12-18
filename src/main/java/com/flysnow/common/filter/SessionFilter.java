@@ -16,11 +16,17 @@ public class SessionFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        /*if (!SecurityUtils.getSubject().isAuthenticated()) {
-            //判断session里是否有用户信息,且是否为ajax请求，如果是ajax请求响应头会有，x-requested-with
-            if (request.getHeader("x-requested-with") != null
-                    && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
-                response.setHeader("session-status", "timeout");//在响应头设置session状态
+        System.out.println(request.getRequestURL());
+        System.out.println(request.getRequestURI());
+        System.out.println(request.getRemoteAddr());
+        String uri = request.getRequestURI();
+        /*if (uri.endsWith("login.html") || uri.endsWith("login")) {
+            filterChain.doFilter(request, servletResponse);
+        } else {
+            Object user = request.getSession().getAttribute(GlobalConstant.LOGIN_USER_KEY);
+            if (user == null) {
+                System.out.println("尚未登录，调到登录页面");
+                response.sendRedirect("login.html");
             }
         }*/
         filterChain.doFilter(request, servletResponse);

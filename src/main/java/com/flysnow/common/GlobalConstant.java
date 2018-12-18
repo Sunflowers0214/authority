@@ -1,8 +1,8 @@
 package com.flysnow.common;
 
-public class Constants {
+public class GlobalConstant {
     //活动用户
-    public static final String LOGIN_USER = "loginUser";
+    public static final String LOGIN_USER_KEY = "loginUser";
     //校验码
     public static final String VALIDATE_CODE = "validateCode";
     //有错误

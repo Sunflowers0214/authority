@@ -1,26 +1,3 @@
-<%@ page language="java" pageEncoding="UTF-8" %>
-<%@ page import="com.flysnow.common.Constants" %>
-<%@ page import="com.flysnow.login.model.LoginUser" %>
-<%
-    //用户ID
-    String strUserId = null;
-    //登录账号
-    String loginAccount = null;
-    String loginName = null;
-
-    LoginUser loginUser = (LoginUser) session.getAttribute(Constants.LOGIN_USER);
-    if (loginUser == null) {
-%>
-<script language="JavaScript">
-    top.window.location = ${baseurl} +"login";
-</script>
-<%
-    } else {
-        strUserId = loginUser.getUserId();
-        loginName = loginUser.getUserName();
-        loginAccount = loginUser.getUserAccount();
-    }
-%>
 <!DOCTYPE html>
 <html>
 <head>

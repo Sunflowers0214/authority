@@ -44,32 +44,12 @@
                         location.href = "home.html";
                     }
                 });
-                /*$.ajax({
-                    url: 'login/weblogin',
-                    data: {
-                        userAccount: uname.val(),
-                        password: pwd.val()
-                    },
-                    type: 'post',
-                    cache: false,
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.code != "success") {
-                            $("#msg_span").html(data.msg);
-                        } else {
-                            location.href = "home.html";
-                        }
-                    },
-                    error: function () {
-                        alert("异常！");
-                    }
-                });*/
             }
         }
     </script>
 </head>
 <body onkeypress="doEnterKey();" id="userlogin_body">
-<form id="thefrom" name="thefrom" action="" method="post">
+<form action="" method="post">
     <input type="hidden" value="login" name="action"/>
     <input type="hidden" id="logintype" name="logintype"/>
     <div id="panSiteFactory">

@@ -1,6 +1,6 @@
 package com.flysnow.common.interceptor;
 
-import com.flysnow.common.Constants;
+import com.flysnow.common.GlobalConstant;
 import com.flysnow.login.model.LoginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,13 +38,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (url.startsWith("/login/weblogin")) {
             return true;
         } else {
-            LoginUser user = (LoginUser) request.getSession().getAttribute(Constants.LOGIN_USER);
+            LoginUser user = (LoginUser) request.getSession().getAttribute(GlobalConstant.LOGIN_USER_KEY);
             if (user == null) {
                 log.info("Interceptor：跳转到login页面！");
                 response.sendRedirect("login.html");
                 return false;
-            } else
+            } else {
                 return true;
+            }
         }
     }
 
