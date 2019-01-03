@@ -167,7 +167,6 @@
             <version>1.2</version>
         </dependency>
 
-
         <!-- json数据 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -203,11 +202,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
@@ -225,6 +219,12 @@
             <version>${logback.version}</version>
         </dependency>
 
+        <!--缓存-->
+        <dependency>
+            <groupId>alisoft-xplatform-asf-cache</groupId>
+            <artifactId>alisoft-xplatform-asf-cache</artifactId>
+            <version>2.5.1</version>
+        </dependency>
     </dependencies>
 
     <build>

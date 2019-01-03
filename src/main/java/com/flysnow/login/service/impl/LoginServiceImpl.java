@@ -9,7 +9,6 @@ import com.flysnow.authority.model.UserFunction;
 import com.flysnow.authority.model.UserPermission;
 import com.flysnow.authority.model.UserRole;
 import com.flysnow.common.base.BaseService;
-import com.flysnow.login.model.LoginFuntion;
 import com.flysnow.login.model.LoginUser;
 import com.flysnow.login.service.LoginService;
 import com.flysnow.logmanage.dao.LoginLogDao;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.flysnow.common.status.LoginStatus.*;
+import static com.flysnow.common.constant.LoginStatus.*;
 
 public class LoginServiceImpl extends BaseService implements LoginService {
 

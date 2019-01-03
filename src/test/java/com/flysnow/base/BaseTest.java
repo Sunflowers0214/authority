@@ -86,7 +86,7 @@ public class BaseTest {
         mockHttp.contentType(MediaType.APPLICATION_FORM_URLENCODED);
         mockHttp.params(params);
         ResultActions resultActions = mockMvc.perform(mockHttp);
-        //resultActions.andExpect(MockMvcResultMatchers.status().isOk());
+        //resultActions.andExpect(MockMvcResultMatchers.constant().isOk());
         //resultActions.andDo(MockMvcResultHandlers.print());
         MvcResult mvcResult = resultActions.andReturn();
         String result = mvcResult.getResponse().getContentAsString();

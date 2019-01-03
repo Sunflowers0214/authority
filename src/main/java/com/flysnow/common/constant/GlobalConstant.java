@@ -1,4 +1,4 @@
-package com.flysnow.common;
+package com.flysnow.common.constant;
 
 public class GlobalConstant {
     //活动用户

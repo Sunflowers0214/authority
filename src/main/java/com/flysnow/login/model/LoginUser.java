@@ -1,7 +1,7 @@
 package com.flysnow.login.model;
 
 import com.flysnow.authority.model.*;
-import com.flysnow.common.status.LoginStatus;
+import com.flysnow.common.constant.LoginStatus;
 
 import java.util.List;
 

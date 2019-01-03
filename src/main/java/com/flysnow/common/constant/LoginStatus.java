@@ -1,4 +1,4 @@
-package com.flysnow.common.status;
+package com.flysnow.common.constant;
 
 /**
  * 登陆信息
@@ -42,6 +42,6 @@ public enum LoginStatus {
 
     @Override
     public String toString() {
-        return "LoginStatus{status='" + status + "', statusName='" + statusName + "'}";
+        return "LoginStatus{constant='" + status + "', statusName='" + statusName + "'}";
     }
 }

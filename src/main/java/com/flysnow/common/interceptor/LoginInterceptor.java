@@ -1,6 +1,6 @@
 package com.flysnow.common.interceptor;
 
-import com.flysnow.common.GlobalConstant;
+import com.flysnow.common.constant.GlobalConstant;
 import com.flysnow.login.model.LoginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

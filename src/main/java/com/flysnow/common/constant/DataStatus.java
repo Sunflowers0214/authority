@@ -1,4 +1,4 @@
-package com.flysnow.common.status;
+package com.flysnow.common.constant;
 
 public enum DataStatus {
 

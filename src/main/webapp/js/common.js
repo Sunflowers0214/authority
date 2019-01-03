@@ -22,7 +22,7 @@ Date.prototype.format = function (format) {
 //全局ajax事件，处理session过期跳转登录
 $.ajaxSetup({
     complete: function (XMLHttpRequest, sessionStatus) {
-        var sessionstatus = XMLHttpRequest.getResponseHeader("session-status");
+        var sessionstatus = XMLHttpRequest.getResponseHeader("session-constant");
         if (sessionstatus == "timeout") {
             $.messager.alert('提示信息', "登录超时！请重新登录！", 'info', function () {
                 window.location.href = 'login';

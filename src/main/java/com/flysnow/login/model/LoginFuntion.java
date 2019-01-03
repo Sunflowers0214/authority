@@ -3,7 +3,7 @@ package com.flysnow.login.model;
 import com.flysnow.authority.model.UserFunction;
 import com.flysnow.authority.model.UserPermission;
 import com.flysnow.authority.model.UserRole;
-import com.flysnow.common.status.LoginStatus;
+import com.flysnow.common.constant.LoginStatus;
 
 import java.util.List;
 

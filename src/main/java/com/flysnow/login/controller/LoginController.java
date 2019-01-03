@@ -1,10 +1,10 @@
 package com.flysnow.login.controller;
 
 import com.flysnow.authority.model.User;
-import com.flysnow.common.GlobalConstant;
+import com.flysnow.common.constant.GlobalConstant;
 import com.flysnow.common.base.BaseController;
 import com.flysnow.common.base.Result;
-import com.flysnow.common.status.LoginStatus;
+import com.flysnow.common.constant.LoginStatus;
 import com.flysnow.common.util.JsonUtils;
 import com.flysnow.common.util.SessionUtil;
 import com.flysnow.common.util.TokenUtil;
